@@ -12,8 +12,24 @@ datasource db {
     relationMode = "prisma"
 }
 
-model Example {
+model TwitterThreadMap {
+    id               String   @id @default(cuid())
+    threadAccountId  String   @unique
+    twitterAccountId String   @unique
+    createdAt        DateTime @default(now())
+    updatedAt        DateTime @updatedAt
+}
+
+model ThreadAccount {
     id        String   @id @default(cuid())
+    accountId String   @unique
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+}
+
+model TwitterAccount {
+    id        String   @id @default(cuid())
+    accountId String   @unique
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
 }
