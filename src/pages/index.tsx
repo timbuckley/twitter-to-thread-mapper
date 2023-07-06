@@ -3,7 +3,7 @@ import Link from "next/link";
 import { api } from "~/utils/api";
 
 export default function Home() {
-  const hello = api.example.hello.useQuery({ text: "from tRPC" });
+  const mappingResult = api.mappings.getAllMappings.useQuery();
 
   return (
     <>
@@ -41,9 +41,15 @@ export default function Home() {
               </div>
             </Link>
           </div>
-          <p className="text-2xl text-white">
-            {hello.data ? hello.data.greeting : "Loading tRPC query..."}
-          </p>
+          <ul>
+            {mappingResult.data?.mappings.map((mapping) => {
+              return (
+                <li key={mapping.id}>
+                  <Link href={`/mappings/${mapping.id}`}>{JSON.stringify(mapping)}</Link>
+                </li>
+              );
+            })}
+          </ul>
         </div>
       </main>
     </>
